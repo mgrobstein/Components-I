@@ -87,6 +87,15 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'abc',
+    date: 'Jan 1st, 1234',
+    firstParagraph: `abcdefghi`,
+
+    secondParagraph: `jklmnopq`,
+
+    thirdParagraph: `rstuvwxyz`
   }
 ];
 
@@ -94,6 +103,51 @@ const data = [
   Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
   and returns a DOM node looking like the one below:
+
+*/
+const article = document.querySelector(".articles");
+
+function articleMaker (articleObj){
+  const articleDiv = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const articlePOne = document.createElement('p');
+  const articlePTwo = document.createElement('p');
+  const articlePThree = document.createElement('p');
+  const articleSpan = document.createElement('span');
+
+  
+  articleDiv.appendChild(articleTitle);
+  articleDiv.appendChild(articleDate);
+  articleDiv.appendChild(articlePOne);
+  articleDiv.appendChild(articlePTwo);
+  articleDiv.appendChild(articlePThree);
+  articleDiv.appendChild(articleSpan);
+
+  articleDiv.classList.add('article');
+  articleDate.classList.add('date');
+  articleSpan.classList.add('expandButton');
+
+  articleTitle.textContent = articleObj.title;
+  articleDate.textContent = articleObj.date;
+  articleSpan.textContent = "+";
+  articlePOne.textContent = articleObj.firstParagraph;
+  articlePTwo.textContent = articleObj.secondParagraph;
+  articlePThree.textContent = articleObj.thirdParagraph;
+
+  articleSpan.addEventListener('click', () => {
+    articleDiv.classList.toggle('article-open');
+  })
+  return articleDiv;
+}
+
+const panelElements = data.map(panelObj =>{
+  return articleMaker(panelObj);
+});
+panelElements.forEach(panelElem => {
+  article.appendChild(panelElem);
+})
+/*
 
   <div class="article">
     <h2>{title of the article}</h2>
